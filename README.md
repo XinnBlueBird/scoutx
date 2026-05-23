@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ScoutX
+
+Crypto intelligence meets content creation. ScoutX is a unified platform for market research, airdrop eligibility analysis, and social content generation.
+
+## Features
+
+### Research X
+- Track trending crypto narratives in real-time
+- Monitor sentiment (bullish / bearish / neutral) across topics
+- KOL tracker with follower counts and focus areas
+- AI-powered research assistant for on-demand analysis
+
+### Airdrop Scout
+- Scan any wallet address for airdrop eligibility
+- Eligibility scoring across multiple protocols (Starknet, zkSync, LayerZero, EigenLayer)
+- Criteria breakdown: met vs missed with detailed explanations
+- Gas cost estimation for claim transactions
+- AI analysis of wallet airdrop potential
+
+### ThreadForge
+- Generate publication-ready Twitter threads from raw notes
+- Multiple source inputs: Research data, Airdrop data, or custom text
+- Tone presets: Alpha Call, Tutorial, Degen Mode, Professional
+- Live preview with per-tweet character counts
+- Streaming generation for real-time feedback
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Icons**: lucide-react
+- **AI**: MiMo v2.5-pro (via OpenAI-compatible API)
+- **Font**: Inter (Google Fonts)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+```bash
+git clone <repo-url>
+cd scoutx
+npm install
+```
+
+### Environment Variables
+
+Copy the example env file and add your API key:
+
+```bash
+cp .env.example .env.local
+```
+
+| Variable | Description |
+|---|---|
+| `MIMO_API_KEY` | API key for MiMo AI (obtain from Xiaomi MiMo platform) |
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## API Documentation
 
-To learn more about Next.js, take a look at the following resources:
+### `POST /api/mimo`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Proxy endpoint for the MiMo AI API. Handles streaming responses and parses both `content` and `reasoning_content` fields.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Request Body:**
+```json
+{
+  "messages": [
+    { "role": "system", "content": "You are a helpful assistant." },
+    { "role": "user", "content": "Your question here" }
+  ]
+}
+```
 
-## Deploy on Vercel
+**Response:**
+- Content-Type: `text/plain; charset=utf-8`
+- Streaming text response (plain text chunks)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Error Responses:**
+- `500` - `MIMO_API_KEY` not configured
+- `400` - Invalid request body
+- `5xx` - Upstream API error
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
+
+```
+scoutx/
+├── app/
+│   ├── layout.tsx              # Root layout (Inter font, dark theme)
+│   ├── globals.css             # Tailwind v4 + custom dark theme
+│   ├── page.tsx                # Landing page
+│   ├── api/
+│   │   └── mimo/
+│   │       └── route.ts        # MiMo AI streaming proxy
+│   └── dashboard/
+│       ├── layout.tsx           # Dashboard layout with sidebar
+│       ├── page.tsx             # Dashboard overview
+│       ├── research/
+│       │   └── page.tsx         # Research X module
+│       ├── scout/
+│       │   └── page.tsx         # Airdrop Scout module
+│       └── forge/
+│           └── page.tsx         # ThreadForge module
+├── .env.example
+├── .gitignore
+├── package.json
+├── tsconfig.json
+├── next.config.ts
+└── README.md
+```
+
+## License
+
+MIT
