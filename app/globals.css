@@ -1,30 +1,39 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-primary: #09090b;
-  --color-bg-panel: #18181b;
-  --color-bg-border: #27272a;
-  --color-accent-cyan: #22d3ee;
-  --color-accent-cyan-dark: #06b6d4;
-  --color-accent-emerald: #34d399;
-  --color-accent-amber: #fbbf24;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --color-bg-primary: #0a0a0f;
+  --color-bg-card: #111118;
+  --color-bg-border: #1a1a2e;
+  --color-accent-cyan: #06b6d4;
+  --color-accent-emerald: #10b981;
+  --color-accent-amber: #f59e0b;
+  --color-accent-red: #ef4444;
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
 :root {
-  --bg-primary: #09090b;
-  --bg-panel: #18181b;
-  --bg-border: #27272a;
-  --accent-cyan: #22d3ee;
-  --accent-cyan-dark: #06b6d4;
-  --accent-emerald: #34d399;
-  --accent-amber: #fbbf24;
+  --bg-primary: #0a0a0f;
+  --bg-card: #111118;
+  --bg-border: #1a1a2e;
+  --accent-cyan: #06b6d4;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-red: #ef4444;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
 }
 
 body {
   background-color: var(--bg-primary);
-  color: #e4e4e7;
-  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  color: var(--text-primary);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+::selection {
+  background-color: rgba(6, 182, 212, 0.3);
+  color: #e2e8f0;
 }
 
 ::-webkit-scrollbar {
@@ -42,7 +51,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #2a2a40;
 }
 
 * {
